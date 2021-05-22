@@ -48,9 +48,9 @@ range_handler() {
 
 echo "
 ####################### INPUT VARS ########################
-NC_FQDN=$NC_CLOUD
-NC_USER=$NC_USR
-NC_PASS=$NC_PW
+NC_FQDN=$NC_FQDN
+NC_USER=$NC_USER
+NC_PASS=$NC_PASS
 BENCH_COUNT=$BENCH_COUNT
 TEST_BLOCK_SIZE_MB=$TEST_BLOCK_SIZE_MB
 TEST_FILES_COUNT=$TEST_FILES_COUNT
@@ -59,14 +59,12 @@ SPEED_LIMIT_DOWN_MB=$SPEED_LIMIT_DOWN_MB
 ###########################################################
 "
 
-TEST_BLOCK_SIZE_MB=$(range_handler $TEST_BLOCK_SIZE_MB)
-TEST_FILES_COUNT=$(range_handler $TEST_FILES_COUNT)
-SPEED_LIMIT_UP_MB=$(range_handler $SPEED_LIMIT_UP_MB)
-SPEED_LIMIT_DOWN_MB=$(range_handler $SPEED_LIMIT_DOWN_MB)
-
 for BENCH_RUN in $(seq 1 $BENCH_COUNT )
 do
-
+   TEST_BLOCK_SIZE_MB=$(range_handler $TEST_BLOCK_SIZE_MB)
+   TEST_FILES_COUNT=$(range_handler $TEST_FILES_COUNT)
+   SPEED_LIMIT_UP_MB=$(range_handler $SPEED_LIMIT_UP_MB)
+   SPEED_LIMIT_DOWN_MB=$(range_handler $SPEED_LIMIT_DOWN_MB)
 echo "
 CLOUD=\"${NC_FQDN:=ony_idiots_try_to_do_this}\"
 USR=\"${NC_USER:=admin}\"
