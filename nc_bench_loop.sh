@@ -84,7 +84,7 @@ BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
    cat $NC_BENCH_CONF
    echo "#########################################################"
    echo "INFO: Testing connectivity"
-   curl -k -s -L https://$CLOUD 2>&1 >/dev/null 
+   curl -k -s -L https://$NC_FQDN 2>&1 >/dev/null 
    if [ $? -eq 0 ]
    then
      $NC_BENCH_SCRIPT $NC_BENCH_CONF || true
