@@ -61,10 +61,10 @@ SPEED_LIMIT_DOWN_MB=$SPEED_LIMIT_DOWN_MB
 
 for BENCH_RUN in $(seq 1 $BENCH_COUNT )
 do
-   TEST_BLOCK_SIZE_MB=$(range_handler $TEST_BLOCK_SIZE_MB)
-   TEST_FILES_COUNT=$(range_handler $TEST_FILES_COUNT)
-   SPEED_LIMIT_UP_MB=$(range_handler $SPEED_LIMIT_UP_MB)
-   SPEED_LIMIT_DOWN_MB=$(range_handler $SPEED_LIMIT_DOWN_MB)
+   TEST_BLOCK_SIZE_MB=$(range_handler $TEST_BLOCK_SIZE_MB)   ; echo TEST_BLOCK_SIZE_MB=$TEST_BLOCK_SIZE_MB
+   TEST_FILES_COUNT=$(range_handler $TEST_FILES_COUNT)       ; echo TEST_FILES_COUNT=$TEST_FILES_COUNT
+   SPEED_LIMIT_UP_MB=$(range_handler $SPEED_LIMIT_UP_MB)     ; echo SPEED_LIMIT_UP_MB=$SPEED_LIMIT_UP_MB
+   SPEED_LIMIT_DOWN_MB=$(range_handler $SPEED_LIMIT_DOWN_MB) ; echo SPEED_LIMIT_DOWN_MB=$SPEED_LIMIT_DOWN_MB
 echo "
 CLOUD=\"${NC_FQDN:=ony_idiots_try_to_do_this}\"
 USR=\"${NC_USER:=admin}\"
@@ -81,7 +81,7 @@ BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
    echo "####################### STARTING: $BENCH_RUN ######################"
    cat $NC_BENCH_CONF
    echo "#########################################################"
-   echo "INFO: Testing connectivity"
+   echo "INFO: Testing connectivity: https://$NC_FQDN "
    curl -k -s -L https://$NC_FQDN 2>&1 >/dev/null 
    if [ $? -eq 0 ]
    then
