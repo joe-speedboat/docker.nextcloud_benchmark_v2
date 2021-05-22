@@ -71,7 +71,7 @@ USR=\"${NC_USER:=admin}\"
 PW=\"${NC_PASS:=passowrd_is_mandatory___idiot}\"
 BENCH_COUNT=\"${BENCH_COUNT:=9999999}\"
 TEST_BLOCK_SIZE_MB=\"${TEST_BLOCK_SIZE_MB_PICK:=$(shuf -i 10-2048 -n1)}\"
-TEST_FILES_COUNT=\"${TEST_FILES_COUNT_MB_PICK:=$(shuf -i 10-200 -n1)}\"
+TEST_FILES_COUNT=\"${TEST_FILES_COUNT_PICK:=$(shuf -i 10-200 -n1)}\"
 SPEED_LIMIT_UP=\"${SPEED_LIMIT_UP_MB_PICK:=$(shuf -i 1-20 -n1)M}\"
 SPEED_LIMIT_DOWN=\"${SPEED_LIMIT_DOWN_MB_PICK:=$(shuf -i 1-20 -n1)M}\"
 LOCAL_DIR=/tmp
