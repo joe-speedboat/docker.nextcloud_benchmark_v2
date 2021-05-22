@@ -1,7 +1,7 @@
 #!/bin/sh -e
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 FROM="alpine:3.13"
-VERSION=0.01
+VERSION=0.02
 IMAGE=nc_bench2
 TO="christian773/$IMAGE"
 

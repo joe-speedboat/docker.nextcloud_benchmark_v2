@@ -48,9 +48,9 @@ range_handler() {
 
 echo "
 ####################### INPUT VARS ########################
-NC_CLOUD=$NC_CLOUD
-NC_USR=$NC_USR
-NC_PW=$NC_PW
+NC_FQDN=$NC_CLOUD
+NC_USER=$NC_USR
+NC_PASS=$NC_PW
 BENCH_COUNT=$BENCH_COUNT
 TEST_BLOCK_SIZE_MB=$TEST_BLOCK_SIZE_MB
 TEST_FILES_COUNT=$TEST_FILES_COUNT
@@ -59,21 +59,18 @@ SPEED_LIMIT_DOWN_MB=$SPEED_LIMIT_DOWN_MB
 ###########################################################
 "
 
-
 TEST_BLOCK_SIZE_MB=$(range_handler $TEST_BLOCK_SIZE_MB)
 TEST_FILES_COUNT=$(range_handler $TEST_FILES_COUNT)
 SPEED_LIMIT_UP_MB=$(range_handler $SPEED_LIMIT_UP_MB)
 SPEED_LIMIT_DOWN_MB=$(range_handler $SPEED_LIMIT_DOWN_MB)
 
-
-
 for BENCH_RUN in $(seq 1 $BENCH_COUNT )
 do
 
 echo "
-CLOUD=\"${CLOUD:=ony_idiots_try_to_do_this}\"
-USR=\"${USR:=admin}\"
-PW=\"${PW:=passowrd_is_mandatory___idiot}\"
+CLOUD=\"${NC_FQDN:=ony_idiots_try_to_do_this}\"
+USR=\"${NC_USER:=admin}\"
+PW=\"${NC_PASS:=passowrd_is_mandatory___idiot}\"
 BENCH_COUNT=\"${BENCH_COUNT:=9999999}\"
 TEST_BLOCK_SIZE_MB=\"${TEST_BLOCK_SIZE_MB:=$(shuf -i 10-2048 -n1)}\"
 TEST_FILES_COUNT=\"${TEST_FILES_COUNT_MB:=$(shuf -i 10-200 -n1)}\"
