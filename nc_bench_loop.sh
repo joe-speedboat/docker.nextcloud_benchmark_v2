@@ -59,12 +59,23 @@ SPEED_LIMIT_DOWN_MB=$SPEED_LIMIT_DOWN_MB
 ###########################################################
 "
 
-for BENCH_RUN in $(seq 1 $BENCH_COUNT )
+BENCH_RUN=0
+while true
 do
+   # loop forever if BENCH_COUNT=0
+   if [ $BENCH_COUNT -ne 0 ]
+   then
+      BENCH_RUN=$(($BENCH_RUN+1))
+      [ $BENCH_RUN -gt $BENCH_COUNT ] && break
+   fi
+
+   # pick random values from ranges given as arguements, if needed
    TEST_BLOCK_SIZE_MB_PICK=$(range_handler $TEST_BLOCK_SIZE_MB)   ; echo TEST_BLOCK_SIZE_MB_PICK=$TEST_BLOCK_SIZE_MB_PICK
    TEST_FILES_COUNT_PICK=$(range_handler $TEST_FILES_COUNT)       ; echo TEST_FILES_COUNT_PICK=$TEST_FILES_COUNT_PICK
    SPEED_LIMIT_UP_MB_PICK=$(range_handler $SPEED_LIMIT_UP_MB)     ; echo SPEED_LIMIT_UP_MB_PICK=$SPEED_LIMIT_UP_MB_PICK
    SPEED_LIMIT_DOWN_MB_PICK=$(range_handler $SPEED_LIMIT_DOWN_MB) ; echo SPEED_LIMIT_DOWN_MB_PICK=$SPEED_LIMIT_DOWN_MB_PICK
+
+# create benchmark config for this run
 echo "
 CLOUD=\"${NC_FQDN:=ony_idiots_try_to_do_this}\"
 USR=\"${NC_USER:=admin}\"
@@ -93,4 +104,8 @@ BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
    echo SLEEPING $SLEEP seconds
    sleep $SLEEP
 done
+
+echo "INFO: $BENCH_RUN has reached $BENCH_COUNT, all the work is done. BYE :-)"
+
+
 
