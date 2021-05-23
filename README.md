@@ -1,4 +1,4 @@
-# docker.nextcloud_benchmark
+# Docker Image: nextcloud_benchmark_v2
 This is a docker container made for reliable nextcloud performance and QA tests.   
 It uses the shell script you can start on any linux machine without docker:   
 * https://github.com/joe-speedboat/shell.scripts/blob/master/nc_benchmark.sh   
