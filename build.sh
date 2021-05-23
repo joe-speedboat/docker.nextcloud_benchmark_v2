@@ -1,7 +1,7 @@
 #!/bin/sh -e
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 FROM="alpine:3.13"
-VERSION=0.03
+VERSION=1.00
 IMAGE=nextcloud_benchmark_v2
 TO="christian773/$IMAGE"
 
@@ -13,7 +13,6 @@ git push
 git push --tags
 
 
-exit 0 # run this if you want to build your own images
 docker system prune -a -f
 sed -i "s@^FROM .*@FROM $FROM@" Dockerfile
 sed -i "s@^ARG VERSION=.*@ARG VERSION=$VERSION@" Dockerfile
