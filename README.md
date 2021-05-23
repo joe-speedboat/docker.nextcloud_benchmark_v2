@@ -19,7 +19,7 @@ Password or Token (Nextcloud > Settings > Security)
 
 ### BENCH_COUNT
 * optional
-* default: 9999999
+* default: 0 (forever)
 number of test runs before exiting container
 
 ### TEST_BLOCK_SIZE_MB
