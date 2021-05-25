@@ -47,9 +47,6 @@ eg: 1-10 with BENCH_COUNT=5 may result in 5 different values between 1 and 10
 eg: 1-10 with BENCH_COUNT=5 may result in 5 different values between 1 and 10
 
 
-
-docker run -d --rm -t --name share -e NC_FQDN=cloud.domain.com -e NC_USER=admin -e NC_PASS=ni....cE -e TEST_FILES_COUNT=1-30 -e TEST_BLOCK_SIZE_MB=1-10 -e BENCH_COUNT=3 -e SPEED_LIMIT_UP_MB=500 -e SPEED_LIMIT_DOWN_MB=500 christian773/nextcloud_benchmark_v2:latest
-
 ## Docker detached start example
 ```
 docker run -d --rm -t --name bench -e NC_FQDN=cloud.domain.com -e NC_USER=tom -e NC_PASS=NQrgs-....-HLGAE -e TEST_FILES_COUNT=1-30 -e TEST_BLOCK_SIZE_MB=1-10 -e BENCH_COUNT=3 -e SPEED_LIMIT_UP_MB=500 -e SPEED_LIMIT_DOWN_MB=500 christian773/nextcloud_benchmark_v2:latest
