@@ -1,12 +1,13 @@
 #!/bin/sh -e
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 FROM="alpine:3.13"
-VERSION=1.01
+VERSION=1.02
 IMAGE=nextcloud_benchmark_v2
 TO="christian773/$IMAGE"
 
 
 cd $(dirname $0) 
+curl https://raw.githubusercontent.com/joe-speedboat/shell.scripts/master/nc_benchmark.sh > nc_benchmark.sh
 git tag -a v$VERSION -m "build tag $VERSION"
 git commit -a -m "build tag $VERSION"
 git push
