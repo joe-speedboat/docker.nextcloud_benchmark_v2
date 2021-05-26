@@ -105,7 +105,7 @@ BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
    sleep $SLEEP
 done
 
-echo "INFO: $BENCH_RUN has reached $BENCH_COUNT, all the work is done. BYE :-)"
+echo "INFO: BENCH_RUN has reached $BENCH_COUNT, all the work is done. BYE :-)"
 
 
 
