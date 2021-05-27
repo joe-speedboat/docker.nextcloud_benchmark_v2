@@ -2,7 +2,7 @@ FROM alpine:3.13
 LABEL maintainer="Chris Ruettimann <chris@bitbull.ch>"
 
 # keep this from underlying container
-ARG VERSION=2.03
+ARG VERSION=2.04
 ARG APK_FLAGS_COMMON=""
 ARG APK_FLAGS_PERSISTENT="${APK_FLAGS_COMMON} --clean-protected --no-cache"
 ARG APK_FLAGS_DEV="${APK_FLAGS_COMMON} --no-cache"

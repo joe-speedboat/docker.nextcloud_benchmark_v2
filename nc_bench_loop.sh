@@ -71,47 +71,37 @@ do
    fi
 
    # pick random values from ranges given as arguements, if needed
+   echo "      ###########################################################"
    TEST_BLOCK_SIZE_MB_PICK=$(range_handler $TEST_BLOCK_SIZE_MB)   ; echo "      TEST_BLOCK_SIZE_MB_PICK=$TEST_BLOCK_SIZE_MB_PICK"
    TEST_FILES_COUNT_PICK=$(range_handler $TEST_FILES_COUNT)       ; echo "      TEST_FILES_COUNT_PICK=$TEST_FILES_COUNT_PICK"
    SPEED_LIMIT_UP_MBIT_PICK=$(range_handler $SPEED_LIMIT_UP_MBIT)     ; echo "      SPEED_LIMIT_UP_MBIT_PICK=$SPEED_LIMIT_UP_MBIT_PICK"
    SPEED_LIMIT_DOWN_MBIT_PICK=$(range_handler $SPEED_LIMIT_DOWN_MBIT) ; echo "      SPEED_LIMIT_DOWN_MBIT_PICK=$SPEED_LIMIT_DOWN_MBIT_PICK"
+   echo "      ###########################################################"
 
-   # feed default values if no input vare given
-   CLOUD="${NC_FQDN:=ony_idiots_try_to_do_this}"
-   USR="${NC_USER:=admin}"
-   PW="${NC_PASS:=passowrd_is_mandatory___idiot}"
-
-   TEST_BLOCK_SIZE_MB="${TEST_BLOCK_SIZE_MB_PICK:=$(shuf -i 10-2048 -n1)}"
-
-   TEST_FILES_COUNT="${TEST_FILES_COUNT_PICK:=$(shuf -i 10-200 -n1)}"
-
+   # speed limit is kind of crapy
    SPEED_LIMIT_UP="${SPEED_LIMIT_UP_MBIT_PICK:=$(shuf -i 10-100 -n1)}"
    SPEED_LIMIT_UP=$(( $SPEED_LIMIT_UP * 1024 / 8 )) # make kbyte, accepted by curl
    
    SPEED_LIMIT_DOWN="${SPEED_LIMIT_DOWN_MBIT_PICK:=$(shuf -i 10-100 -n1)}"
    SPEED_LIMIT_DOWN=$(( $SPEED_LIMIT_DOWN * 1024 / 8 )) # make kbyte, accepted by curl
    
-   LOCAL_DIR=/tmp
-   BENCH_DIR="$(curl ifconfig.me | tr '.' '_')_$HOSTNAME"
-
-
 # create benchmark config for this run
 echo "
 CLOUD=\"${NC_FQDN}\"
 USR=\"${NC_USER}\"
 PW=\"${NC_PASS}\"
 BENCH_COUNT=\"${BENCH_COUNT}\"
-TEST_BLOCK_SIZE_MB=\"${TEST_BLOCK_SIZE_MB}\"
-TEST_FILES_COUNT=\"${TEST_FILES_COUNT}\"
+TEST_BLOCK_SIZE_MB=\"{TEST_BLOCK_SIZE_MB_PICK:=$(shuf -i 10-1024 -n1)}\"
+TEST_FILES_COUNT=\"${TEST_FILES_COUNT_PICK:=$(shuf -i 10-200 -n1)}\"
 SPEED_LIMIT_UP=\"${SPEED_LIMIT_UP}K\"
 SPEED_LIMIT_DOWN=\"${SPEED_LIMIT_DOWN}K\"
 LOCAL_DIR=/tmp
 BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
 " > $NC_BENCH_CONF
 
-   echo "####################### STARTING: $BENCH_RUN ######################"
-   cat $NC_BENCH_CONF
-   echo "#########################################################"
+   echo "      ####################### STARTING: $BENCH_RUN ######################"
+   cat $NC_BENCH_CONF | sed 's/^/      /'
+   echo "      #########################################################"
    echo "INFO: Testing connectivity: https://$NC_FQDN "
    curl -k -s -L https://$NC_FQDN 2>&1 >/dev/null 
    if [ $? -eq 0 ]
