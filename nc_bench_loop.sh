@@ -96,7 +96,7 @@ TEST_FILES_COUNT=\"${TEST_FILES_COUNT_PICK:=$(shuf -i 10-200 -n1)}\"
 SPEED_LIMIT_UP=\"${SPEED_LIMIT_UP}K\"
 SPEED_LIMIT_DOWN=\"${SPEED_LIMIT_DOWN}K\"
 LOCAL_DIR=/tmp
-BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
+BENCH_DIR=\"$(curl ifconfig.me 2>/dev/null | tr '.' '_')_$HOSTNAME\"
 " > $NC_BENCH_CONF
 
    echo "      ####################### STARTING: $BENCH_RUN ######################"
