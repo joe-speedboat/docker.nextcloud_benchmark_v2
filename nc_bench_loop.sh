@@ -54,8 +54,8 @@ NC_PASS=$NC_PASS
 BENCH_COUNT=$BENCH_COUNT
 TEST_BLOCK_SIZE_MB=$TEST_BLOCK_SIZE_MB
 TEST_FILES_COUNT=$TEST_FILES_COUNT
-SPEED_LIMIT_UP_MB=$SPEED_LIMIT_UP_MB
-SPEED_LIMIT_DOWN_MB=$SPEED_LIMIT_DOWN_MB
+SPEED_LIMIT_UP_MBIT=$SPEED_LIMIT_UP_MBIT
+SPEED_LIMIT_DOWN_MBIT=$SPEED_LIMIT_DOWN_MBIT
 ###########################################################
 "
 
@@ -72,19 +72,34 @@ do
    # pick random values from ranges given as arguements, if needed
    TEST_BLOCK_SIZE_MB_PICK=$(range_handler $TEST_BLOCK_SIZE_MB)   ; echo TEST_BLOCK_SIZE_MB_PICK=$TEST_BLOCK_SIZE_MB_PICK
    TEST_FILES_COUNT_PICK=$(range_handler $TEST_FILES_COUNT)       ; echo TEST_FILES_COUNT_PICK=$TEST_FILES_COUNT_PICK
-   SPEED_LIMIT_UP_MB_PICK=$(range_handler $SPEED_LIMIT_UP_MB)     ; echo SPEED_LIMIT_UP_MB_PICK=$SPEED_LIMIT_UP_MB_PICK
-   SPEED_LIMIT_DOWN_MB_PICK=$(range_handler $SPEED_LIMIT_DOWN_MB) ; echo SPEED_LIMIT_DOWN_MB_PICK=$SPEED_LIMIT_DOWN_MB_PICK
+   SPEED_LIMIT_UP_MBIT_PICK=$(range_handler $SPEED_LIMIT_UP_MBIT)     ; echo SPEED_LIMIT_UP_MBIT_PICK=$SPEED_LIMIT_UP_MBIT_PICK
+   SPEED_LIMIT_DOWN_MBIT_PICK=$(range_handler $SPEED_LIMIT_DOWN_MBIT) ; echo SPEED_LIMIT_DOWN_MBIT_PICK=$SPEED_LIMIT_DOWN_MBIT_PICK
+
+   # feed default values if no input vare given
+   CLOUD="${NC_FQDN:=ony_idiots_try_to_do_this}"
+   USR="${NC_USER:=admin}"
+   PW="${NC_PASS:=passowrd_is_mandatory___idiot}"
+   BENCH_COUNT="${BENCH_COUNT:=0}"
+   TEST_BLOCK_SIZE_MB="${TEST_BLOCK_SIZE_MB_PICK:=$(shuf -i 10-2048 -n1)}"
+   TEST_FILES_COUNT="${TEST_FILES_COUNT_PICK:=$(shuf -i 10-200 -n1)}"
+   SPEED_LIMIT_UP="${SPEED_LIMIT_UP_MBIT_PICK:=$(shuf -i 10-100 -n1)}"
+   SPEED_LIMIT_UP=$(( $SPEED_LIMIT_UP * 1024 / 8 )) # make kbyte, accepted by curl
+   SPEED_LIMIT_DOWN="${SPEED_LIMIT_DOWN_MBIT_PICK:=$(shuf -i 10-100 -n1)}"
+   SPEED_LIMIT_DOWN=$(( $SPEED_LIMIT_DOWN * 1024 / 8 )) # make kbyte, accepted by curl
+   LOCAL_DIR=/tmp
+   BENCH_DIR="$(curl ifconfig.me | tr '.' '_')_$HOSTNAME"
+
 
 # create benchmark config for this run
 echo "
-CLOUD=\"${NC_FQDN:=ony_idiots_try_to_do_this}\"
-USR=\"${NC_USER:=admin}\"
-PW=\"${NC_PASS:=passowrd_is_mandatory___idiot}\"
-BENCH_COUNT=\"${BENCH_COUNT:=9999999}\"
-TEST_BLOCK_SIZE_MB=\"${TEST_BLOCK_SIZE_MB_PICK:=$(shuf -i 10-2048 -n1)}\"
-TEST_FILES_COUNT=\"${TEST_FILES_COUNT_PICK:=$(shuf -i 10-200 -n1)}\"
-SPEED_LIMIT_UP=\"${SPEED_LIMIT_UP_MB_PICK:=$(shuf -i 1-20 -n1)}M\"
-SPEED_LIMIT_DOWN=\"${SPEED_LIMIT_DOWN_MB_PICK:=$(shuf -i 1-20 -n1)}M\"
+CLOUD=\"${NC_FQDN}\"
+USR=\"${NC_USER}\"
+PW=\"${NC_PASS}\"
+BENCH_COUNT=\"${BENCH_COUNT}\"
+TEST_BLOCK_SIZE_MB=\"${TEST_BLOCK_SIZE_MB_PICK}\"
+TEST_FILES_COUNT=\"${TEST_FILES_COUNT_PICK}\"
+SPEED_LIMIT_UP=\"${SPEED_LIMIT_UP_MBIT_PICK}K\"
+SPEED_LIMIT_DOWN=\"${SPEED_LIMIT_DOWN_MBIT_PICK}K\"
 LOCAL_DIR=/tmp
 BENCH_DIR=\"$(curl ifconfig.me | tr '.' '_')_$HOSTNAME\"
 " > $NC_BENCH_CONF

@@ -34,22 +34,22 @@ eg: 1-10 with BENCH_COUNT=5 may result in 5 different values between 1 and 10
 * you can pass range as value and each test will pick a random val from this range
 eg: 1-10 with BENCH_COUNT=5 may result in 5 different values between 1 and 10
 
-### SPEED_LIMIT_UP_MB
-* optional, Megabyte/second
-* default: random value picked from range 1-20
+### SPEED_LIMIT_UP_MBIT
+* optional, Megabit/second
+* default: random value picked from range 10-100
 * you can pass range as value and each test will pick a random val from this range
 eg: 1-10 with BENCH_COUNT=5 may result in 5 different values between 1 and 10
 
-### SPEED_LIMIT_DOWN_MB
-* optional, Megabyte/second
-* default: random value picked from range 1-20
+### SPEED_LIMIT_DOWN_MBIT
+* optional, Megabit/second
+* default: random value picked from range 10-100
 * you can pass range as value and each test will pick a random val from this range
 eg: 1-10 with BENCH_COUNT=5 may result in 5 different values between 1 and 10
 
 
 ## Docker detached start example
 ```
-docker run -d --rm -t --name bench -e NC_FQDN=cloud.domain.com -e NC_USER=tom -e NC_PASS=NQrgs-....-HLGAE -e TEST_FILES_COUNT=1-30 -e TEST_BLOCK_SIZE_MB=1-10 -e BENCH_COUNT=3 -e SPEED_LIMIT_UP_MB=500 -e SPEED_LIMIT_DOWN_MB=500 christian773/nextcloud_benchmark_v2:latest
+docker run -d --rm -t --name bench -e NC_FQDN=cloud.domain.com -e NC_USER=tom -e NC_PASS=NQrgs-....-HLGAE -e TEST_FILES_COUNT=1-30 -e TEST_BLOCK_SIZE_MB=1-10 -e BENCH_COUNT=3 -e SPEED_LIMIT_UP_MBIT=500 -e SPEED_LIMIT_DOWN_MBIT=500 christian773/nextcloud_benchmark_v2:latest
 ```
 
 ## Docker detached load test example
@@ -57,7 +57,7 @@ docker run -d --rm -t --name bench -e NC_FQDN=cloud.domain.com -e NC_USER=tom -e
 # fire the load
 for c in {1..20}
 do
-   docker run -d --rm -t --name bench$c -e NC_FQDN=cloud.domain.com -e NC_USER=tom -e NC_PASS=NQrgs-....-HLGAE -e TEST_FILES_COUNT=1-30 -e TEST_BLOCK_SIZE_MB=1-10 -e BENCH_COUNT=3 -e SPEED_LIMIT_UP_MB=500 -e SPEED_LIMIT_DOWN_MB=500 christian773/nextcloud_benchmark_v2:latest
+   docker run -d --rm -t --name bench$c -e NC_FQDN=cloud.domain.com -e NC_USER=tom -e NC_PASS=NQrgs-....-HLGAE -e TEST_FILES_COUNT=1-30 -e TEST_BLOCK_SIZE_MB=1-10 -e BENCH_COUNT=3 -e SPEED_LIMIT_UP_MBIT=500 -e SPEED_LIMIT_DOWN_MBIT=500 christian773/nextcloud_benchmark_v2:latest
 done
 docker ps
 docker logs -f bench1
